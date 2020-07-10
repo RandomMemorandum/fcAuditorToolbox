@@ -222,6 +222,12 @@ def replace_unichar_in_column(df, col_name, to_replace, replace_with):
     return df
 
 
+def max_num_cols_in_rows(csv_file):
+    """Gather Maximum number of Columns present in CSV.
+
+
+    """
+
 def csv_summary_stats(file_path):
     """Read in CSV, output summary stats on columns and values.
 
@@ -246,4 +252,27 @@ def csv_summary_stats(file_path):
 		)
 
 
+def df_summary_stats(df):
+    """Read in CSV, output summary stats on columns and values.
+
+    Args:
+        file_path ([df]): pandas DataFrame to summarize
+
+    Return:
+        Writes CSV of results
+        
+    Read CSV into DataFrame, perform summary statistics on each column.
+	Output results as file.
+	Numeric Columns: min, max, num of blanks/zeros,
+	Discrete: unique values, num of unique values, min/max of length of strings
+	https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html
+    """
+    report_df = df.describe(include='all')
+    filename = file_name_from_path(file_path)
+
+    report_df.to_csv(
+		filename + '_pd_describe.csv',
+		header=True,
+		encoding='utf-8'
+		)
 
